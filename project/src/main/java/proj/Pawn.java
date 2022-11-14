@@ -9,7 +9,7 @@ public class Pawn extends Figure {
         name = Constants.FigureNames.PAWN;
     }
 
-    public Pawn(Figure a) {
+    public Pawn(Pawn a) {
         super(a);
     }
 

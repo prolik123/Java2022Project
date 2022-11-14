@@ -9,8 +9,9 @@ public class Bishop extends Figure{
         name = Constants.FigureNames.BISHOP;
     }
 
-    public Bishop(Figure a) {
+    public Bishop(Bishop a) {
         super(a);
+        name = Constants.FigureNames.BISHOP;
     }
 
     @Override

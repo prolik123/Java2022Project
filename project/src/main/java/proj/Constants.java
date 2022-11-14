@@ -10,6 +10,10 @@ public class Constants {
 
     public static final String CLASS_PREFIX = "proj.";
 
+    public static final String[] BOARD_STYLE = {"-fx-background-color: #ffffff;","-fx-background-color: #696969;"};
+
+    public static final String[] MOVE_STYLE = {"-fx-background-color: #69ff69;","-fx-background-color: #005500;"};
+
     /// Constatnts figures names
 
     public static class FigureNames {

@@ -10,7 +10,7 @@ public class Knight extends Figure {
         name = Constants.FigureNames.KNIGHT;
     }
 
-    public Knight(Figure a) {
+    public Knight(Knight a) {
         super(a);
     }
     

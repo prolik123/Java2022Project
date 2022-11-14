@@ -9,7 +9,7 @@ public class Rook extends Figure {
         name = Constants.FigureNames.ROOK;
     }
 
-    public Rook(Figure a) {
+    public Rook(Rook a) {
         super(a);
     }
 

@@ -9,7 +9,7 @@ public class Queen extends Figure {
         name = Constants.FigureNames.QUEEN;
     }
 
-    public Queen(Figure a) {
+    public Queen(Queen a) {
         super(a);
     }
 

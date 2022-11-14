@@ -40,7 +40,7 @@ public class GameEngine {
     }
 
     public static boolean isDefeatableFigureAt(Point A) {
-        return Board[A.getX()][A.getY()].name.equals(Constants.FigureNames.KING);
+        return !Board[A.getX()][A.getY()].name.equals(Constants.FigureNames.KING);
     }
 
     public static String getFigureNameAtPosition(Point A) {
@@ -72,9 +72,9 @@ public class GameEngine {
             return new Figure(a);
         try{
             Class<?> className = Class.forName(Constants.CLASS_PREFIX + a.name);
-            Constructor<?> Con = className.getConstructor(className);
+            Constructor Con = className.getConstructor(Player.class,Point.class,String.class);
             
-            return (Figure)Con.newInstance(a);
+            return (Figure)Con.newInstance(a.owner,a.position,a.imgLink);
         }
         catch(Exception e) {
             e.printStackTrace();
@@ -138,6 +138,12 @@ public class GameEngine {
             }
         }
         return false;
+    }
+
+    public static void move(Point A,Point B) {
+        Board[B.getX()][B.getY()] = copyFigureWithType(Board[A.getX()][A.getY()]);
+        Board[A.getX()][A.getY()] = new Figure(A);
+        Board[B.getX()][B.getY()].move(B);
     }
     
 }

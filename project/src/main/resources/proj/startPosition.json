@@ -281,7 +281,7 @@
     {
         "figure": {
             "name": "King",
-            "link": "KingWhite.png",
+            "link": "KingBlack.png",
             "owner": "1",
             "xPosition": "4",
             "yPosition": "0"
