@@ -3,37 +3,37 @@ package proj;
 /// mainly using int so there is no seans of using generics
 
 public class Point {
-    public volatile int x,y;
+    public volatile Integer x,y;
 
-    Point(int x,int y) {
+    public Point(int x,int y) {
         this.x = x;
         this.y = y;
     }
 
-    Point(int x) {
+    public Point(int x) {
         this.x = x;
     }
 
-    Point(Point A) {
+    public Point(Point A) {
         this.x = A.x;
         this.y = A.y;
     }
 
-    Point setX(int x) {
+    public Point setX(int x) {
         this.x = x;
         return this;
     }
 
-    Point setY(int y) {
+    public Point setY(int y) {
         this.y = y;
         return this;
     }
 
-    int getX() {
+    public int getX() {
         return x;
     }
 
-    int getY() {
+    public int getY() {
         return y;
     }
 
@@ -59,5 +59,10 @@ public class Point {
         if(!(A instanceof Point))
             return false;
         return this.EqualTo((Point)A);
+    }
+
+    @Override
+    public String toString(){
+        return "x = " + x + ", y =  " + y + "\n";
     }
 }

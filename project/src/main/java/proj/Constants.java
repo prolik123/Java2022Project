@@ -6,6 +6,10 @@ public class Constants {
 
     public static final Integer SIZE_OF_BOARD = 8;
 
+    public static final String DEFAULT_POSITION_PATH = "startPosition.json";
+
+    public static final String CLASS_PREFIX = "proj.";
+
     /// Constatnts figures names
 
     public static class FigureNames {

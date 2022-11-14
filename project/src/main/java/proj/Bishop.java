@@ -4,12 +4,12 @@ import java.util.*;
 
 public class Bishop extends Figure{
 
-    Bishop(Player A,Point Start) {
-        super(A,Start);
+    public Bishop(Player A,Point Start, String imgLink) {
+        super(A,Start,imgLink);
         name = Constants.FigureNames.BISHOP;
     }
 
-    Bishop(Figure a) {
+    public Bishop(Figure a) {
         super(a);
     }
 

@@ -1,0 +1,290 @@
+[
+    {
+        "figure": {
+            "name": "Pawn",
+            "link": "PawnWhite.png",
+            "owner": "0",
+            "xPosition": "0",
+            "yPosition": "6"
+        }
+    },
+    {
+        "figure": {
+            "name": "Pawn",
+            "link": "PawnWhite.png",
+            "owner": "0",
+            "xPosition": "1",
+            "yPosition": "6"
+        }
+    },
+    {
+        "figure": {
+            "name": "Pawn",
+            "link": "PawnWhite.png",
+            "owner": "0",
+            "xPosition": "2",
+            "yPosition": "6"
+        }
+    },
+    {
+        "figure": {
+            "name": "Pawn",
+            "link": "PawnWhite.png",
+            "owner": "0",
+            "xPosition": "3",
+            "yPosition": "6"
+        }
+    },
+    {
+        "figure": {
+            "name": "Pawn",
+            "link": "PawnWhite.png",
+            "owner": "0",
+            "xPosition": "4",
+            "yPosition": "6"
+        }
+    },
+    {
+        "figure": {
+            "name": "Pawn",
+            "link": "PawnWhite.png",
+            "owner": "0",
+            "xPosition": "5",
+            "yPosition": "6"
+        }
+    },
+    {
+        "figure": {
+            "name": "Pawn",
+            "link": "PawnWhite.png",
+            "owner": "0",
+            "xPosition": "6",
+            "yPosition": "6"
+        }
+    },
+    {
+        "figure": {
+            "name": "Pawn",
+            "link": "PawnWhite.png",
+            "owner": "0",
+            "xPosition": "7",
+            "yPosition": "6"
+        }
+    },
+    {
+        "figure": {
+            "name": "Pawn",
+            "link": "PawnBlack.png",
+            "owner": "1",
+            "xPosition": "0",
+            "yPosition": "1"
+        }
+    },
+    {
+        "figure": {
+            "name": "Pawn",
+            "link": "PawnBlack.png",
+            "owner": "1",
+            "xPosition": "1",
+            "yPosition": "1"
+        }
+    },
+    {
+        "figure": {
+            "name": "Pawn",
+            "link": "PawnBlack.png",
+            "owner": "1",
+            "xPosition": "2",
+            "yPosition": "1"
+        }
+    },
+    {
+        "figure": {
+            "name": "Pawn",
+            "link": "PawnBlack.png",
+            "owner": "1",
+            "xPosition": "3",
+            "yPosition": "1"
+        }
+    },
+    {
+        "figure": {
+            "name": "Pawn",
+            "link": "PawnBlack.png",
+            "owner": "1",
+            "xPosition": "4",
+            "yPosition": "1"
+        }
+    },
+    {
+        "figure": {
+            "name": "Pawn",
+            "link": "PawnBlack.png",
+            "owner": "1",
+            "xPosition": "5",
+            "yPosition": "1"
+        }
+    },
+    {
+        "figure": {
+            "name": "Pawn",
+            "link": "PawnBlack.png",
+            "owner": "1",
+            "xPosition": "6",
+            "yPosition": "1"
+        }
+    },
+    {
+        "figure": {
+            "name": "Pawn",
+            "link": "PawnBlack.png",
+            "owner": "1",
+            "xPosition": "7",
+            "yPosition": "1"
+        }
+    },
+    {
+        "figure": {
+            "name": "Rook",
+            "link": "RookWhite.png",
+            "owner": "0",
+            "xPosition": "0",
+            "yPosition": "7"
+        }
+    },
+    {
+        "figure": {
+            "name": "Rook",
+            "link": "RookWhite.png",
+            "owner": "0",
+            "xPosition": "7",
+            "yPosition": "7"
+        }
+    },
+    {
+        "figure": {
+            "name": "Rook",
+            "link": "RookBlack.png",
+            "owner": "1",
+            "xPosition": "0",
+            "yPosition": "0"
+        }
+    },
+    {
+        "figure": {
+            "name": "Rook",
+            "link": "RookBlack.png",
+            "owner": "1",
+            "xPosition": "7",
+            "yPosition": "0"
+        }
+    },
+    {
+        "figure": {
+            "name": "Knight",
+            "link": "KnightWhite.png",
+            "owner": "0",
+            "xPosition": "1",
+            "yPosition": "7"
+        }
+    },
+    {
+        "figure": {
+            "name": "Knight",
+            "link": "KnightWhite.png",
+            "owner": "0",
+            "xPosition": "6",
+            "yPosition": "7"
+        }
+    },
+    {
+        "figure": {
+            "name": "Knight",
+            "link": "KnightBlack.png",
+            "owner": "1",
+            "xPosition": "1",
+            "yPosition": "0"
+        }
+    },
+    {
+        "figure": {
+            "name": "Knight",
+            "link": "KnightBlack.png",
+            "owner": "1",
+            "xPosition": "6",
+            "yPosition": "0"
+        }
+    },
+    {
+        "figure": {
+            "name": "Bishop",
+            "link": "BishopWhite.png",
+            "owner": "0",
+            "xPosition": "2",
+            "yPosition": "7"
+        }
+    },
+    {
+        "figure": {
+            "name": "Bishop",
+            "link": "BishopWhite.png",
+            "owner": "0",
+            "xPosition": "5",
+            "yPosition": "7"
+        }
+    },
+    {
+        "figure": {
+            "name": "Bishop",
+            "link": "BishopBlack.png",
+            "owner": "1",
+            "xPosition": "2",
+            "yPosition": "0"
+        }
+    },
+    {
+        "figure": {
+            "name": "Bishop",
+            "link": "BishopBlack.png",
+            "owner": "1",
+            "xPosition": "5",
+            "yPosition": "0"
+        }
+    },
+    {
+        "figure": {
+            "name": "Queen",
+            "link": "QueenWhite.png",
+            "owner": "0",
+            "xPosition": "3",
+            "yPosition": "7"
+        }
+    },
+    {
+        "figure": {
+            "name": "King",
+            "link": "KingWhite.png",
+            "owner": "0",
+            "xPosition": "4",
+            "yPosition": "7"
+        }
+    },
+    {
+        "figure": {
+            "name": "Queen",
+            "link": "QueenBlack.png",
+            "owner": "1",
+            "xPosition": "3",
+            "yPosition": "0"
+        }
+    },
+    {
+        "figure": {
+            "name": "King",
+            "link": "KingWhite.png",
+            "owner": "1",
+            "xPosition": "4",
+            "yPosition": "0"
+        }
+    }
+]

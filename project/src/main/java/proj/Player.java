@@ -2,7 +2,13 @@ package proj;
 
 public class Player {
     
-    public Integer getMoveModifier() {
-        return 1;
+    Integer modyfier = 0;
+    public Player(int mod) {
+        modyfier = mod;
     }
+    public Integer getMoveModifier() {
+        return modyfier;
+    }
+
+
 }

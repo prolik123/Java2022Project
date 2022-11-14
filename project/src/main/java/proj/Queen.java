@@ -4,12 +4,12 @@ import java.util.*;
 
 public class Queen extends Figure {
     
-    Queen(Player A,Point Start) {
-        super(A,Start);
+    public Queen(Player A,Point Start, String imgLink) {
+        super(A,Start,imgLink);
         name = Constants.FigureNames.QUEEN;
     }
 
-    Queen(Figure a) {
+    public Queen(Figure a) {
         super(a);
     }
 

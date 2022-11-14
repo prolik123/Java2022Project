@@ -4,12 +4,12 @@ import java.util.*;
 
 public class Rook extends Figure {
 
-    Rook(Player A,Point Start) {
-        super(A,Start);
+    public Rook(Player A,Point Start, String imgLink) {
+        super(A,Start,imgLink);
         name = Constants.FigureNames.ROOK;
     }
 
-    Rook(Figure a) {
+    public Rook(Figure a) {
         super(a);
     }
 

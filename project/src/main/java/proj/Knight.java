@@ -5,12 +5,12 @@ import java.lang.Math.*;
 
 public class Knight extends Figure {
 
-    Knight(Player A,Point Start) {
-        super(A,Start);
+    public Knight(Player A,Point Start, String imgLink) {
+        super(A,Start,imgLink);
         name = Constants.FigureNames.KNIGHT;
     }
 
-    Knight(Figure a) {
+    public Knight(Figure a) {
         super(a);
     }
     

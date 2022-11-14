@@ -4,21 +4,21 @@ import java.util.*;
 
 public class Pawn extends Figure {
 
-    Pawn(Player A,Point Start) {
-        super(A,Start);
+    public Pawn(Player A,Point Start, String imgLink) {
+        super(A,Start,imgLink);
         name = Constants.FigureNames.PAWN;
     }
 
-    Pawn(Figure a) {
+    public Pawn(Figure a) {
         super(a);
     }
 
     @Override
     public List<Point> getPossibleMoves() {
         List<Point> res = new ArrayList<>();
-
         /// first type of move ( + 1 )
         Point checkMove = new Point(position.getX(), position.getY() + owner.getMoveModifier());
+        //System.out.println("" + Point.isPointInBoardRange(checkMove) + " " + GameEngine.isSkipableFigureAt(checkMove));
         if(Point.isPointInBoardRange(checkMove) && GameEngine.isSkipableFigureAt(checkMove)){
                 res.add(checkMove);
         }

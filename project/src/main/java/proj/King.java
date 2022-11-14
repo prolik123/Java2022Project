@@ -4,12 +4,12 @@ import java.util.*;
 
 public class King extends Figure{
 
-    King(Player A,Point Start) {
-        super(A,Start);
+    public King(Player A,Point Start, String imgLink) {
+        super(A,Start,imgLink);
         name = Constants.FigureNames.KING;
     }
 
-    King(Figure a) {
+    public King(Figure a) {
         super(a);
     }
 

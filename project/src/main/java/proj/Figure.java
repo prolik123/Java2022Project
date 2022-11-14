@@ -10,31 +10,38 @@ interface PlayAble {
 public class Figure implements PlayAble {
     Point position;
     String name = "None";
+    String imgLink = "None.png";
     Player owner = null;
-    volatile boolean isSkipable = false;
+    volatile boolean isSkipable = true;
     public volatile Point Start;
     public volatile Point Last;
 
-    Figure() {
+    public Figure() {
         isSkipable = true;
         name = Constants.FigureNames.NONE;
     }
 
-    Figure(Player A,Point Start) {
+    public Figure(Player A,Point Start, String imgLink) {
         owner = A;
         this.isSkipable = false;
-        this.Start = Start;
-        this.position = Start;
+        this.Start = new Point(Start);
+        this.position = new Point(Start);
         this.Last = null;
         this.name = Constants.FigureNames.NONE;
+        this.imgLink = new String(imgLink);
     }
 
-    Figure(Figure a) {
-        this.position = a.position;
+    public Figure(Point Start) {
+        this.Start = new Point(Start);
+        this.position = new Point(Start);
+    }
+
+    public Figure(Figure a) {
+        this.position = new Point(a.position);
         this.owner = a.owner;
-        this.Start = a.Start;
-        this.Last = a.Last;
-        this.name = a.name;
+        this.Start = new Point(a.Start);
+        this.Last = new Point(a.Last);
+        this.name = new String(a.name);
         this.isSkipable = a.isSkipable;
     }
 
@@ -55,6 +62,11 @@ public class Figure implements PlayAble {
     public boolean move(Point A) { 
         setPosition(A);
         return true;
+    }
+
+    @Override
+    public String toString(){
+        return name + ":\n" + imgLink + "\n" + position.toString()  + "\n";
     }
 
 }
