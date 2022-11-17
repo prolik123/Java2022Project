@@ -18,6 +18,7 @@ public class GameScreen extends GridPane {
     public static double width = 0;
     public static Score WhiteScore;
     public static Score BlackScore;
+    public static volatile boolean firstMove = false;
     GameScreen(double h, double w)
     {
         WhiteScore = new Score("White");
@@ -27,6 +28,8 @@ public class GameScreen extends GridPane {
         whoHasMove = 0;
         currLit = new ArrayList<>();
         boardView = new Button[Constants.SIZE_OF_BOARD][Constants.SIZE_OF_BOARD];
+        if(GameEngine.Users[whoHasMove].isBot)
+            firstMove = true;
         drawBoard();
     }
 
@@ -87,7 +90,7 @@ public class GameScreen extends GridPane {
                     continue;
                 }
                 boardView[i][j].setOnAction(e -> {
- 
+                    firstMove = false;
                     updateBoard();
                     List<Point> arr = GameEngine.Board[a][b].getValidMoves();
                     for(Point temp:arr) {
@@ -103,16 +106,21 @@ public class GameScreen extends GridPane {
                             boardView[x][y].setOnAction(null);
                         else {
                             boardView[x][y].setOnAction(ev -> {
+                                firstMove = false;
                                 GameEngine.move(new Point(a,b),new Point(x,y));
                                 whoHasMove = (whoHasMove+1)%2;
                                 updateBoard();
                                 int result = GameEngine.isMatOrPat();
-                                if(result != 0)
+                                if(result != 0) {
                                     setResult(result);
+                                    return;
+                                }
                                 whoHasMove = GameEngine.Users[whoHasMove].move(whoHasMove);
                                 result = GameEngine.isMatOrPat();
-                                if(result != 0)
+                                if(result != 0) {
                                     setResult(result);
+                                    return;
+                                }
                                 if(GameEngine.Users[(whoHasMove+1)%2].isBot)
                                     updateBoard();
                             });
@@ -121,7 +129,8 @@ public class GameScreen extends GridPane {
                 });
             }
         }
-        if(GameEngine.Users[whoHasMove].isBot) {
+        if(GameEngine.Users[whoHasMove].isBot && firstMove) {
+            firstMove = false;
             whoHasMove = GameEngine.Users[whoHasMove].move(whoHasMove);
             updateBoard();
         }
