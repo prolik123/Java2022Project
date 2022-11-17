@@ -1,4 +1,4 @@
-Dane z 14.11.2022 15:00
+Dane z 17.11.2022 20:35
 
 <table id="results" class="table table-striped">
 <tbody>
@@ -9,10 +9,10 @@ Dane z 14.11.2022 15:00
   <th>Total lines</th>
 </tr>
 <tr>
-    <td>Text</td>
-    <td>1</td>
-    <td>0</td>
-    <td>1</td>
+  <td>Text</td>
+  <td>1</td>
+  <td>0</td>
+  <td>36</td>
 </tr>
 <tr>
   <td>Xml</td>
@@ -22,9 +22,9 @@ Dane z 14.11.2022 15:00
 </tr>
 <tr>
   <td>Java</td>
-  <td>14</td>
-  <td>590</td>
-  <td>740</td>
+  <td>15</td>
+  <td>951</td>
+  <td>1152</td>
 </tr>
 <tr>
   <td>Json</td>
