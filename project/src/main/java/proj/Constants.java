@@ -14,6 +14,7 @@ public class Constants {
 
     public static final String[] MOVE_STYLE = {"-fx-background-color: #69ff69;","-fx-background-color: #005500;"};
 
+    public static final String[] ATTACK_STYLE = {"-fx-background-color: #E52800;","-fx-background-color: #BB2100"};
     /// Constatnts figures names
 
     public static class FigureNames {

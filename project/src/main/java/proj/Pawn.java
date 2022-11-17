@@ -51,7 +51,11 @@ public class Pawn extends Figure {
             }*/
         }
         /// TODO IMPLEMENT BICIE W PRZELOCIE
-
         return res;
+    }
+
+    @Override
+    public List<Point> getValidMoves() {
+        return validList(getPossibleMoves());
     }
 }

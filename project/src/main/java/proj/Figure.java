@@ -2,7 +2,7 @@ package proj;
 import java.util.*;
 
 interface PlayAble {
-    Set<Point> getValidMoves();
+    List<Point> getValidMoves();
     List<Point> getPossibleMoves();
     boolean move(Point A);
 }
@@ -40,17 +40,20 @@ public class Figure implements PlayAble {
         this.position = new Point(a.position);
         this.owner = a.owner;
         this.Start = new Point(a.Start);
-        this.Last = new Point(a.Last);
+        if(a.Last == null)
+            this.Last = null;
+        else
+            this.Last = new Point(a.Last);
         this.name = new String(a.name);
         this.isSkipable = a.isSkipable;
     }
 
-    public Set<Point> getValidMoves() {
-        return new HashSet<Point>();
+    public List<Point> getValidMoves() {
+        return new ArrayList<Point>();
     }
 
     public List<Point> getPossibleMoves() {
-        return new ArrayList<>();
+        return new ArrayList<Point>();
     }
 
     public Figure setPosition(Point A) {
@@ -62,6 +65,17 @@ public class Figure implements PlayAble {
     public boolean move(Point A) { 
         setPosition(A);
         return true;
+    }
+
+    public List<Point> validList(List<Point> res) {
+        List<Point> result = new ArrayList<>();
+        for(Point it:res) {
+            if(GameEngine.isMoveValid(this.position, it)) {
+                result.add(it);
+            }
+        }
+
+        return result;
     }
 
     @Override

@@ -80,4 +80,8 @@ public class Queen extends Figure {
 
         return res;
     }
+    @Override
+    public List<Point> getValidMoves() {
+        return validList(getPossibleMoves());
+    }
 }

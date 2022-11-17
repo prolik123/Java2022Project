@@ -2,25 +2,41 @@ package proj;
 import java.lang.reflect.Constructor;
 import java.util.*;
 
+import proj.Player.Bot;
+
 public class GameEngine {
 
     public static Figure[][] tempBoard = null;
     public static Figure[][] Board;
     public static Player[] Users;
-    public GameEngine() {
+    public static volatile int whoHasMove;
+    public static volatile int gameType;
+    public GameEngine(int gameType) {
+        this.gameType = gameType;
         Board = new Figure[Constants.SIZE_OF_BOARD][Constants.SIZE_OF_BOARD];
         Users = new Player[2];
-        Users[0] = new Player(-1);
-        Users[1] = new Player(1);
+        if(gameType == 0) {
+            Users[0] = new Player(-1);
+            Users[1] = new Player(1);
+        }
+        else if(gameType == 1) {
+            Users[0] = new Player(-1);
+            Users[1] = new Bot(1);
+        }
+        else if(gameType == 2) {
+            Users[0] = new Bot(-1);
+            Users[1] = new Player(1);
+        }
         JsonParser.setStartingPosition(Board,Constants.DEFAULT_POSITION_PATH);
-        for(Figure[] itt : Board) {
+        /*for(Figure[] itt : Board) {
             for(Figure it : itt) {
                 System.out.println(it);
                 System.out.println("Possible moves: \n");
                 System.out.println(it.getPossibleMoves());
                 System.out.println("\n");
             }
-        }
+        }*/
+        whoHasMove = 0;
     }
 
     public static boolean isSkipableFigureAt(Point A) {
@@ -40,7 +56,8 @@ public class GameEngine {
     }
 
     public static boolean isDefeatableFigureAt(Point A) {
-        return !Board[A.getX()][A.getY()].name.equals(Constants.FigureNames.KING);
+        return true;
+        //return !Board[A.getX()][A.getY()].name.equals(Constants.FigureNames.KING);
     }
 
     public static String getFigureNameAtPosition(Point A) {
@@ -62,7 +79,7 @@ public class GameEngine {
     }
 
     public static Player getOtherPlayer(Player a) {
-        if(Users[0] == a)
+        if(Users[0].equals(a))
             return Users[1];
         return Users[0];
     }
@@ -85,7 +102,7 @@ public class GameEngine {
     public static Figure[][] copyBoard() {
         Figure TempTab[][] = new Figure[Constants.SIZE_OF_BOARD][Constants.SIZE_OF_BOARD];
         for(int k=0;k<Constants.SIZE_OF_BOARD;k++) {
-            for(int i=0;i<Constants.SIZE_OF_BOARD;k++) {
+            for(int i=0;i<Constants.SIZE_OF_BOARD;i++) {
                 TempTab[k][i] = copyFigureWithType(Board[k][i]);
             }
         }
@@ -108,13 +125,14 @@ public class GameEngine {
         cpy = tempBoard;
         tempBoard = Board;
         Board = cpy;
-        return w;
+        return !w;
     }
 
     public static Point getPositionOfPlayerKing(Player a) {//, Figure[][] TempBoard) {
         for(Figure[] iit:Board) {
             for(Figure it:iit) {
-                if(it.name.equals(Constants.FigureNames.KING) && it.owner == a) {
+                //System.out.println("" + it.name + it.owner + " " + a + " " + it.position +"\n");
+                if(it.name.equals(Constants.FigureNames.KING) && it.owner.equals(a)) {
                     return new Point(it.position);
                 }
             }
@@ -127,9 +145,11 @@ public class GameEngine {
         Player other = getOtherPlayer(a);
         for(Figure[] iit:Board) {
             for(Figure it:iit) {
-                if(it.owner == other) {
+                //System.out.println(other + " " + it.owner + " " + it.name);
+                if(other.equals(it.owner)) {
                     List<Point> arr = it.getPossibleMoves();
                     for(Point temp:arr) {
+                        //System.out.println(temp + " " + kingPosition);
                         if(temp.EqualTo(kingPosition)){
                             return true;
                         }
@@ -144,6 +164,30 @@ public class GameEngine {
         Board[B.getX()][B.getY()] = copyFigureWithType(Board[A.getX()][A.getY()]);
         Board[A.getX()][A.getY()] = new Figure(A);
         Board[B.getX()][B.getY()].move(B);
+        whoHasMove = (whoHasMove+1)%2;
+    }
+
+    public static int isMatOrPat() {
+        boolean isAbleToMove = false;
+        for(Figure[] iit:Board) {
+            for(Figure it:iit) {
+                if(Users[whoHasMove].equals(it.owner)) {
+                    if(!it.getValidMoves().isEmpty()) {
+                        isAbleToMove = true;
+                        break;
+                    }
+                }
+            }
+        }
+        if(!isAbleToMove && !isCheckForPlayer(Users[(whoHasMove)%2])) {
+            return 4;
+        }
+        else if(!isAbleToMove && whoHasMove == 0)
+            return 2;
+        else if(!isAbleToMove && whoHasMove == 1) {
+            return 1;
+        }
+        return 0;
     }
     
 }
