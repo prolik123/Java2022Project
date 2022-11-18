@@ -120,13 +120,14 @@ public class GameScreen extends GridPane {
                                     return;
                                 }
                                 whoHasMove = GameEngine.Users[whoHasMove].move(whoHasMove);
+                                if(GameEngine.Users[(whoHasMove+1)%2].isBot)
+                                    updateBoard();
                                 result = GameEngine.isMatOrPat();
                                 if(result != 0) {
                                     setResult(result);
                                     return;
                                 }
-                                if(GameEngine.Users[(whoHasMove+1)%2].isBot)
-                                    updateBoard();
+
                             });
                         }
                     }

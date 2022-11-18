@@ -32,14 +32,14 @@ public class Player {
                     if(!mv.isEmpty()) {
                         int randMove = (int) ((Math.random())*((mv.size())));
                         GameEngine.move(new Point(randx, randy), mv.get(randMove));
-                       /*  if(GameEngine.ableToPromote(GameEngine.Board[randx][randy]) > 0) {
+                        if(GameEngine.ableToPromote(GameEngine.Board[mv.get(randMove).getX()][mv.get(randMove).getY()]) > 0) {
                             String imgL = "QueenBlack.png";
                             if(whoMove == 0) {
                                 imgL = "QueenWhite.png";
                             }
-                            GameEngine.Board[randx][randy] = new Queen(GameEngine.Users[whoMove], new Point(randx,randy),imgL );
+                            GameEngine.Board[mv.get(randMove).getX()][mv.get(randMove).getY()] = new Queen(GameEngine.Users[whoMove], mv.get(randMove),imgL );
                            
-                        }*/
+                        }
                         break;
                     }
                 }
