@@ -24,18 +24,27 @@ public class Player {
         }
         @Override
         public int move(int whoMove) {
-            whoMove = (whoMove+1)%2;
             while(true) {
                 int randx = (int) ((Math.random())*((Constants.SIZE_OF_BOARD)));
                 int randy = (int) ((Math.random())*((Constants.SIZE_OF_BOARD)));
                 if(GameEngine.Board[randx][randy].owner == this) {
                     List<Point> mv = GameEngine.Board[randx][randy].getValidMoves();
                     if(!mv.isEmpty()) {
-                        GameEngine.move(new Point(randx, randy), mv.get(0));
+                        int randMove = (int) ((Math.random())*((mv.size())));
+                        GameEngine.move(new Point(randx, randy), mv.get(randMove));
+                       /*  if(GameEngine.ableToPromote(GameEngine.Board[randx][randy]) > 0) {
+                            String imgL = "QueenBlack.png";
+                            if(whoMove == 0) {
+                                imgL = "QueenWhite.png";
+                            }
+                            GameEngine.Board[randx][randy] = new Queen(GameEngine.Users[whoMove], new Point(randx,randy),imgL );
+                           
+                        }*/
                         break;
                     }
                 }
             }
+            whoMove = (whoMove+1)%2;
             return whoMove;
         }
     }

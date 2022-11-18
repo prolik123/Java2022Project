@@ -11,6 +11,7 @@ public class GameEngine {
     public static Player[] Users;
     public static volatile int whoHasMove;
     public static volatile int gameType;
+    //public static GameScreen globalScreen;
     public GameEngine(int gameType) {
         this.gameType = gameType;
         Board = new Figure[Constants.SIZE_OF_BOARD][Constants.SIZE_OF_BOARD];
@@ -185,6 +186,16 @@ public class GameEngine {
         else if(!isAbleToMove && whoHasMove == 0)
             return 2;
         else if(!isAbleToMove && whoHasMove == 1) {
+            return 1;
+        }
+        return 0;
+    }
+
+    public static int ableToPromote(Figure a) {
+        if(a.name.equals(Constants.FigureNames.PAWN) && a.position.getY() == 0) {
+            return 2;
+        }
+        else if(a.name.equals(Constants.FigureNames.PAWN) && a.position.getY() == Constants.SIZE_OF_BOARD-1) {
             return 1;
         }
         return 0;

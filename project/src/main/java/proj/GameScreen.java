@@ -6,6 +6,8 @@ import javafx.scene.text.Text;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
+
+import java.lang.reflect.Constructor;
 import java.util.*;
 
 public class GameScreen extends GridPane {
@@ -19,6 +21,7 @@ public class GameScreen extends GridPane {
     public static Score WhiteScore;
     public static Score BlackScore;
     public static volatile boolean firstMove = false;
+    public static volatile boolean block = false;
     GameScreen(double h, double w)
     {
         WhiteScore = new Score("White");
@@ -108,6 +111,7 @@ public class GameScreen extends GridPane {
                             boardView[x][y].setOnAction(ev -> {
                                 firstMove = false;
                                 GameEngine.move(new Point(a,b),new Point(x,y));
+                                promotion(x, y);
                                 whoHasMove = (whoHasMove+1)%2;
                                 updateBoard();
                                 int result = GameEngine.isMatOrPat();
@@ -134,6 +138,58 @@ public class GameScreen extends GridPane {
             whoHasMove = GameEngine.Users[whoHasMove].move(whoHasMove);
             updateBoard();
         }
+    }
+
+    public void promotion(int x,int y) {
+        if(GameEngine.ableToPromote(GameEngine.Board[x][y]) > 0) {
+            if(GameEngine.Users[whoHasMove].isBot) {
+                String imgL = "QueenBlack.png";
+                if(whoHasMove == 0) {
+                    imgL = "QueenWhite.png";
+                }
+                GameEngine.Board[x][y] = new Queen(GameEngine.Users[whoHasMove], new Point(x,y),imgL );
+            }
+            else {
+                HBox prom = new HBox();
+                String[] imgL = new String[4];
+                String clt = "Black";
+                if(whoHasMove == 0) {
+                    clt = "White";
+                }
+                final String cl = clt;
+                imgL[0] = new String("Queen");
+                imgL[1] = new String("Knight");
+                imgL[2] = new String("Rook");
+                imgL[3] = new String("Bishop");
+                for(int k=0;k<4;k++) {
+                    Button btn = new Button("");
+                    btn.setStyle(Constants.MOVE_STYLE[1]);
+                    btn.setMaxSize((App.squareSize),(App.squareSize));
+                    btn.setMinSize((App.squareSize),(App.squareSize));
+                    btn.setGraphic(new ImageView(new Image(App.class.getResource(imgL[k] + cl + ".png").toExternalForm())));
+                    final int in = k;
+                    btn.setOnAction(e->{
+                        
+                        Figure a= GameEngine.Board[x][y];
+                        try{
+                            Class<?> className = Class.forName(Constants.CLASS_PREFIX + imgL[in]);
+                            Constructor Con = className.getConstructor(Player.class,Point.class,String.class);
+                            
+                            GameEngine.Board[x][y] = (Figure)Con.newInstance(a.owner,a.position,imgL[in] + cl + ".png");
+                        }
+                        catch(Exception w) {
+                            w.printStackTrace();
+                        }
+                        this.getChildren().remove(prom);
+                        updateBoard();
+                    });
+                    prom.getChildren().add(btn);
+                }
+                
+                this.add(prom,1,0);
+            }
+        }
+
     }
 
     public void setResult(int res) {
