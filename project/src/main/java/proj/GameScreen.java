@@ -3,12 +3,19 @@ package proj;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
 
 import java.lang.reflect.Constructor;
+import java.nio.file.Files;
 import java.util.*;
+import javafx.util.*;
+import java.nio.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 
 public class GameScreen extends GridPane {
     
@@ -22,13 +29,17 @@ public class GameScreen extends GridPane {
     public static Score BlackScore;
     public static volatile boolean firstMove = false;
     public static volatile boolean block = false;
-    GameScreen(double h, double w)
+    public static volatile boolean watchMode = false;
+    public static volatile int currentIt = 0;
+    GameScreen(double h, double w,boolean watchMode)
     {
         WhiteScore = new Score("White");
         BlackScore = new Score("Black");
         height = h;
         width = w;
         whoHasMove = 0;
+        this.watchMode = watchMode;
+        currentIt = 0;
         currLit = new ArrayList<>();
         boardView = new Button[Constants.SIZE_OF_BOARD][Constants.SIZE_OF_BOARD];
         if(GameEngine.Users[whoHasMove].isBot)
@@ -38,16 +49,66 @@ public class GameScreen extends GridPane {
 
     void drawBoard()
     {
+        setAlignment(Pos.CENTER);
         //add(new Result("NAME",500,Color.RED),0,0);
         Button back = new Button("Back to Main Menu");
+        Button export = new Button("Export game to json");
         back.setOnAction(e->{
             App.switchScene("Menu");
+        });
+        export.setOnAction(e->{
+            try{
+                FileChooser fc = new FileChooser();
+                File selectedFile;
+                fc.setTitle("Select file to save data");
+                selectedFile = fc.showSaveDialog(App.stage);
+                String name = selectedFile.getAbsolutePath();
+                name = name + ".json";
+                selectedFile = new File(name);
+                selectedFile.createNewFile();
+                FileWriter fw = new FileWriter(name, true);
+                BufferedWriter bw = new BufferedWriter(fw);
+                GameEngine.deserializeHistory(bw);
+                bw.close();
+            }
+            catch(Exception w) {
+                w.printStackTrace();
+            }
         });
         
         back.setMaxSize(2*(App.squareSize),(App.squareSize));
         back.setMinSize(2*(App.squareSize),(App.squareSize));
+        export.setMaxSize(2*(App.squareSize),(App.squareSize));
+        export.setMinSize(2*(App.squareSize),(App.squareSize));
+
         Score white = new Score("White");
+        if(watchMode) {
+            Button left = new Button("");
+            left.setStyle(Constants.BOARD_STYLE[0]);
+            left.setMaxSize((App.squareSize),(App.squareSize));
+            left.setMinSize((App.squareSize),(App.squareSize));
+            left.setGraphic(new ImageView(new Image(App.class.getResource("LeftArrow.png").toExternalForm())));
+            //left.setAlignment(Pos.CENTER_RIGHT);
+            left.setOnAction(e->{
+                WatchEngine.prev();
+                updateBoard();
+            });
+            add(left,0,1);
+            Button right = new Button("");
+            right.setStyle(Constants.BOARD_STYLE[0]);
+            right.setMaxSize((App.squareSize),(App.squareSize));
+            right.setMinSize((App.squareSize),(App.squareSize));
+            right.setGraphic(new ImageView(new Image(App.class.getResource("RightArrow.png").toExternalForm())));
+            //right.setAlignment(Pos.CENTER_RIGHT);
+            right.setOnAction(e->{
+                WatchEngine.next();
+                updateBoard();
+            });
+            add(right,0,2);
+        }
         add(back,0,8);
+        if(!watchMode)
+            add(export,0,7);
         add(white,0,0);
         add(new Score("Black"),2,0);
         for(int j=0;j<Constants.SIZE_OF_BOARD;j++){
@@ -110,7 +171,7 @@ public class GameScreen extends GridPane {
                         else {
                             boardView[x][y].setOnAction(ev -> {
                                 firstMove = false;
-                                GameEngine.move(new Point(a,b),new Point(x,y));
+                                GameEngine.move(new Point(a,b),new Point(x,y),true);
                                 promotion(x, y);
                                 whoHasMove = (whoHasMove+1)%2;
                                 updateBoard();
@@ -132,8 +193,12 @@ public class GameScreen extends GridPane {
                         }
                     }
                 });
+                if(watchMode)
+                    boardView[i][j].setOnAction(null);
             }
         }
+        if(watchMode)
+            return;
         if(GameEngine.Users[whoHasMove].isBot && firstMove) {
             firstMove = false;
             whoHasMove = GameEngine.Users[whoHasMove].move(whoHasMove);
@@ -253,4 +318,5 @@ public class GameScreen extends GridPane {
             this.setGraphic(new ImageView(new Image(App.class.getResource(imgLink).toExternalForm())));
         }
     }
+
 }

@@ -31,7 +31,7 @@ public class Player {
                     List<Point> mv = GameEngine.Board[randx][randy].getValidMoves();
                     if(!mv.isEmpty()) {
                         int randMove = (int) ((Math.random())*((mv.size())));
-                        GameEngine.move(new Point(randx, randy), mv.get(randMove));
+                        GameEngine.move(new Point(randx, randy), mv.get(randMove),true);
                         if(GameEngine.ableToPromote(GameEngine.Board[mv.get(randMove).getX()][mv.get(randMove).getY()]) > 0) {
                             String imgL = "QueenBlack.png";
                             if(whoMove == 0) {

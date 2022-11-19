@@ -8,23 +8,34 @@ import javafx.stage.Stage;
 
 
 import javafx.geometry.Rectangle2D;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.scene.*;
+import javafx.util.*;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.*;
+
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.*;
+
+
 
 /**
  * JavaFX App
  */
 public class App extends Application {
 
-    private static Stage stage;
+    public static Stage stage;
     public static double maxHeight;
     public static double maxWidth;
     public static double squareSize;
     public static Parent root;
+    public static GameScreen curGameScreen;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -50,18 +61,23 @@ public class App extends Application {
         {
             if(Name.equals("Start Game COOP")) {
                 GameEngine current = new GameEngine(0);
-                stage.setScene(new Scene(new GameScreen(maxHeight, maxWidth)));
+                stage.setScene(new Scene(new GameScreen(maxHeight, maxWidth,false)));
             }
             else if(Name.equals("Menu")) {
                 stage.setScene( new Scene(new Menu()));
             }
             else if(Name.equals("Start Game as White")) {
                 GameEngine current = new GameEngine(1);
-                stage.setScene(new Scene(new GameScreen(maxHeight, maxWidth)));
+                stage.setScene(new Scene(new GameScreen(maxHeight, maxWidth,false)));
             }
             else if(Name.equals("Start Game as Black")) {
                 GameEngine current = new GameEngine(2);
-                stage.setScene(new Scene(new GameScreen(maxHeight, maxWidth)));
+                stage.setScene(new Scene(new GameScreen(maxHeight, maxWidth,false)));
+            }
+            else if(Name.equals("Watch")) {
+                GameEngine current = new GameEngine(0);
+                curGameScreen = new GameScreen(maxHeight, maxWidth, true);
+                stage.setScene(new Scene(curGameScreen));
             }
             stage.show();
         }
@@ -77,6 +93,7 @@ public class App extends Application {
         Button play;
         Button playAsWhite;
         Button playAsBlack;
+        Button importFile;
         Menu()
         {
             play = new Button("PLAY COOP");
@@ -88,6 +105,9 @@ public class App extends Application {
             playAsBlack = new Button("PLAY AS BLACK");
             playAsBlack.setMinSize(2*squareSize, squareSize);
             playAsBlack.setMinSize(2*squareSize, squareSize);
+            importFile = new Button("IMPORT FILE");
+            importFile.setMinSize(2*squareSize, squareSize);
+            importFile.setMinSize(2*squareSize, squareSize);
 
 
             setStyle(
@@ -98,9 +118,10 @@ public class App extends Application {
             "-fx-font-size: 20; ");
             setVgap(squareSize/4);
             setHgap(squareSize);
-            add(play,5,20);
-            add(playAsWhite,5,21);
-            add(playAsBlack,5,22);
+            add(play,5,16);
+            add(playAsWhite,5,17);
+            add(playAsBlack,5,18);
+            add(importFile,5,19);
             setMinWidth(12*squareSize);
             setMinHeight(9*squareSize);
             setMaxWidth(12*squareSize);
@@ -117,6 +138,23 @@ public class App extends Application {
                     switchScene("Start Game as Black");
                 }
             );
+            importFile.setOnAction(e -> {
+                FileChooser fc = new FileChooser();
+                File selectedFile;
+                fc.setTitle("Select file to open");
+                selectedFile = fc.showOpenDialog(stage);
+                List<Pair<Point,Point>> res = JsonParser.getJsonMoves(selectedFile.getAbsolutePath());
+                if(res == null) {
+                    Alert al = new Alert(AlertType.ERROR);
+                    al.setTitle("This file is not supported");
+                    al.setContentText("This file is not supported");
+                    al.show();
+                }
+                else {
+                    new WatchEngine(res);
+                    switchScene("Watch");
+                }
+            });
         }
     
     }

@@ -1,7 +1,10 @@
 package proj;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.*;
 
+import javafx.util.Pair;
 import proj.Player.Bot;
 
 public class GameEngine {
@@ -11,6 +14,7 @@ public class GameEngine {
     public static Player[] Users;
     public static volatile int whoHasMove;
     public static volatile int gameType;
+    public static List<Pair<Point,Point>> history;
     //public static GameScreen globalScreen;
     public GameEngine(int gameType) {
         this.gameType = gameType;
@@ -28,6 +32,7 @@ public class GameEngine {
             Users[0] = new Bot(-1);
             Users[1] = new Player(1);
         }
+        history = new ArrayList<>();
         JsonParser.setStartingPosition(Board,Constants.DEFAULT_POSITION_PATH);
         /*for(Figure[] itt : Board) {
             for(Figure it : itt) {
@@ -161,7 +166,10 @@ public class GameEngine {
         return false;
     }
 
-    public static void move(Point A,Point B) {
+    public static void move(Point A,Point B,boolean historical) {
+        if(historical) {
+            history.add(new Pair<Point,Point>(A, B));
+        }
         Board[B.getX()][B.getY()] = copyFigureWithType(Board[A.getX()][A.getY()]);
         Board[A.getX()][A.getY()] = new Figure(A);
         Board[B.getX()][B.getY()].move(B);
@@ -199,6 +207,54 @@ public class GameEngine {
             return 1;
         }
         return 0;
+    }
+
+    public static void deserializeHistory(BufferedWriter bw) {
+        try{
+            bw.write("[");
+            bw.newLine();
+            for(int k=0;k<history.size();k++) {
+                bw.write("\t");
+                bw.write("{");
+                bw.newLine();
+                bw.write("\t\t");
+                bw.write("\"move\": {");
+                bw.newLine();
+                bw.write("\t\t\t");
+                bw.write("\"start\": {");
+                bw.newLine();
+                deserializePoint(bw, history.get(k).getKey());
+                bw.write("\t\t\t},");
+                bw.newLine();
+                bw.write("\t\t\t");
+                bw.write("\"end\": {");
+                bw.newLine();
+                deserializePoint(bw, history.get(k).getValue());
+                bw.write("\t\t\t}");
+                bw.newLine();
+                bw.write("\t\t}");
+                bw.newLine();
+                bw.write("\t}");
+                if(k!=history.size()-1) {
+                    bw.write(",");
+                }
+                bw.newLine();
+            }
+
+            bw.write("]");
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deserializePoint(BufferedWriter bw, Point pt) throws IOException{
+
+        bw.write("\t\t\t\t");
+        bw.write("\"x\": " + pt.getX() + ",");
+        bw.newLine();
+        bw.write("\t\t\t\t");
+        bw.write("\"y\": " + pt.getY());
+        bw.newLine();
     }
     
 }

@@ -3,8 +3,11 @@ package proj;
 
 import java.io.*;
 import java.lang.reflect.Constructor;
+import java.nio.file.Path;
+import java.util.*;
 
 import org.json.*;
+import javafx.util.*;
 
 
 public class JsonParser {
@@ -35,6 +38,31 @@ public class JsonParser {
         }
     }
 
+    public static List<Pair<Point,Point>> getJsonMoves(String Path) {
+        List<Pair<Point,Point>> result = new ArrayList<>();
+        try{
+            //System.out.println(Path);
+            JSONArray arr = new JSONArray(new JSONTokener(new FileReader( new File(Path))));
+            /// for each element of Json Array
+            for(int k=0;k<arr.length();k++) {
+                /// Getting k-th Json value form the array
+                JSONObject currentJsonValue = (JSONObject) arr.get(k);
+                JSONObject currentJsonMove = (JSONObject) currentJsonValue.get("move");
+                JSONObject currentJsonPoint = (JSONObject) currentJsonMove.get("start");
+                Point first = new Point(rawIntGet(currentJsonPoint,"x"),rawIntGet(currentJsonPoint, "y"));
+                currentJsonPoint = (JSONObject) currentJsonMove.get("end");
+                Point second = new Point(rawIntGet(currentJsonPoint,"x"),rawIntGet(currentJsonPoint, "y"));
+                if(!Point.isPointInBoardRange(first) || !Point.isPointInBoardRange(second))
+                    throw new RuntimeException();
+                result.add(new Pair<Point,Point>(first,second));
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return result;
+    }
+
     /// You must be sure that the attribute is String
     public static String getJsonStringAttribute(JSONObject object,String attributeName) {
         return (String) object.get(attributeName);
@@ -43,6 +71,10 @@ public class JsonParser {
     /// You must be sure that the attribute is Integer
     public static Integer getJsonIntegerAttribute(JSONObject object,String attributeName) {
         return Integer.parseInt((String) object.get(attributeName));
+    }
+
+    public static Integer rawIntGet(JSONObject object,String attributeName) {
+        return (Integer) object.get(attributeName);
     }
 
     /// Returns the json array from given path
