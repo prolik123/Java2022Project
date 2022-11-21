@@ -87,7 +87,7 @@ public class GameScreen extends GridPane {
             left.setStyle(Constants.BOARD_STYLE[0]);
             left.setMaxSize((App.squareSize),(App.squareSize));
             left.setMinSize((App.squareSize),(App.squareSize));
-            left.setGraphic(new ImageView(new Image(App.class.getResource("LeftArrow.png").toExternalForm())));
+            left.setGraphic(new ImageView(new Image(App.class.getResource("LeftArrow2.png").toExternalForm())));
             //left.setAlignment(Pos.CENTER_RIGHT);
             left.setOnAction(e->{
                 WatchEngine.prev();
@@ -98,7 +98,7 @@ public class GameScreen extends GridPane {
             right.setStyle(Constants.BOARD_STYLE[0]);
             right.setMaxSize((App.squareSize),(App.squareSize));
             right.setMinSize((App.squareSize),(App.squareSize));
-            right.setGraphic(new ImageView(new Image(App.class.getResource("RightArrow.png").toExternalForm())));
+            right.setGraphic(new ImageView(new Image(App.class.getResource("RightArrow2.png").toExternalForm())));
             //right.setAlignment(Pos.CENTER_RIGHT);
             right.setOnAction(e->{
                 WatchEngine.next();
