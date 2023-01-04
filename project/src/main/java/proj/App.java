@@ -47,6 +47,7 @@ public class App extends Application {
         stage.setScene( new Scene(new Menu()));
         stage.show();
         stage.setTitle("Chess Game");
+        stage.setResizable(false);
         App.stage = stage;
     }
 
@@ -97,17 +98,17 @@ public class App extends Application {
         Menu()
         {
             play = new Button("PLAY COOP");
-            play.setMinSize(2*squareSize, squareSize);
-            play.setMinSize(2*squareSize, squareSize);
+            play.setMinSize(3*squareSize, squareSize);
+            play.setMaxSize(3*squareSize, squareSize);
             playAsWhite = new Button("PLAY AS WHITE");
-            playAsWhite.setMinSize(2*squareSize, squareSize);
-            playAsWhite.setMinSize(2*squareSize, squareSize);
+            playAsWhite.setMinSize(3*squareSize, squareSize);
+            playAsWhite.setMaxSize(3*squareSize, squareSize);
             playAsBlack = new Button("PLAY AS BLACK");
-            playAsBlack.setMinSize(2*squareSize, squareSize);
-            playAsBlack.setMinSize(2*squareSize, squareSize);
+            playAsBlack.setMinSize(3*squareSize, squareSize);
+            playAsBlack.setMaxSize(3*squareSize, squareSize);
             importFile = new Button("IMPORT FILE");
-            importFile.setMinSize(2*squareSize, squareSize);
-            importFile.setMinSize(2*squareSize, squareSize);
+            importFile.setMinSize(3*squareSize, squareSize);
+            importFile.setMaxSize(3*squareSize, squareSize);
 
 
             setStyle(

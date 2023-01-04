@@ -52,7 +52,7 @@ public class GameScreen extends GridPane {
         setAlignment(Pos.CENTER);
         //add(new Result("NAME",500,Color.RED),0,0);
         Button back = new Button("Back to Main Menu");
-        Button export = new Button("Export game to json");
+        Button export = new Button("Export game");
         back.setOnAction(e->{
             App.switchScene("Menu");
         });
